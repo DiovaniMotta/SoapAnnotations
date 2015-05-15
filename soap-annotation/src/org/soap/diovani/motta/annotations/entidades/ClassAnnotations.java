@@ -40,4 +40,9 @@ public class ClassAnnotations {
 	public void setFields(List<FieldAnnotations> fields) {
 		this.fields = fields;
 	}
+	@Override
+	public String toString() {
+		return "ClassAnnotations [kclasse=" + kclasse + ", namespace="
+				+ namespace + ", typeId=" + typeId + ", fields=" + fields + "]";
+	}
 }

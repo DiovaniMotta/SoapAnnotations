@@ -1,0 +1,26 @@
+import org.ksoap2.serialization.SoapObject;
+import org.soap.diovani.motta.manager.Session;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		SoapObject soapObject = new SoapObject("http:/www.teste.com.br","produto");
+		soapObject.addProperty("chave", 1);
+		soapObject.addProperty("nome", "Teste");
+		SoapObject grupo = new SoapObject("http:/www.teste.com.br","grupo");
+		grupo.addProperty("chave", 1);
+		grupo.addProperty("nome","Grupo");
+		soapObject.addSoapObject(grupo);
+		System.out.println(soapObject.toString());
+		for(int x=0; x<soapObject.getPropertyCount(); x++){
+			System.out.println("Posicao: "+x+" valor: "+soapObject.getProperty(x));
+		}
+		//SoapObject obj = (SoapObject) soapObject.getProperty(2); //"grupo"
+		//System.out.print(obj.toString());
+		//Produto produto = Session.parse(Produtto.class, soapObject);
+		//System.out.println(produto.toString());
+	}
+
+}

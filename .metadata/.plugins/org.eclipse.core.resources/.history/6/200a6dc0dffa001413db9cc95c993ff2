@@ -1,0 +1,14 @@
+import java.io.Serializable;
+
+import org.soap.diovani.motta.annotations.SoapObject;
+
+@SoapObject(namespace="http:/www.teste.com.br")
+public class Familia  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+}

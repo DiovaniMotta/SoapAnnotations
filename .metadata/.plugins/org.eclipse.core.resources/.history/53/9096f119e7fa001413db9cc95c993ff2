@@ -1,0 +1,16 @@
+package org.soap.diovani.motta.transactions;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 15/05/2015
+ * Classe responsavel por efetuar as requisicoes soap com o web service Soap 
+ *
+ */
+public class RequestSoap {
+
+	
+	public void primitiveReques(){
+		
+	}
+}

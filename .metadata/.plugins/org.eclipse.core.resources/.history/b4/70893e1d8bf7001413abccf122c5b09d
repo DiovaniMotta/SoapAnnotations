@@ -1,0 +1,42 @@
+package org.soap.diovani.motta.types;
+
+import java.util.Vector;
+
+import org.ksoap2.serialization.SoapObject;
+import org.soap.diovani.motta.manager.Session;
+
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data:10/05/2015 
+ * Classe responsável por tratar de encapsular os valores de objetos complexos usados pela aplicacao
+ */
+public class CollectionsValue <T> {
+
+	//armazena um vetor de objetos informados no parametro
+	private Vector<Class<T>> lista = new Vector<Class<T>>();
+	//Objeto responsável por efetuar o desempacotamente de objetos primitivos
+	private PrimitiveValue primitiveValue = new PrimitiveValue();
+	
+	/**
+	 * Método responsável por retornar um vetor de objetos informados no parametros
+	 * @param soapObject o objeto que contém a lista a ser desencapsulada
+	 * @return um vetor de objetos repassados por parametro
+	 */
+	public Vector<Class<T>> value(SoapObject soapObject){
+		//itero sobre toda a lista de propriedades
+		for(int x=0; x<soapObject.getPropertyCount(); x++){
+			try
+			{
+				SoapObject property = (SoapObject) soapObject.getProperty(x);
+				Session.response(classe, object);
+			}
+			catch(Exception exception)
+			{
+				
+			}
+		}
+		return lista; 
+	}
+}

@@ -1,0 +1,14 @@
+package org.soap.diovani.motta.conversor;
+
+import java.text.SimpleDateFormat;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 11/05/2015.
+ * Classe responsável por efetuar a conversão de um objeto em String 
+ */
+public class DateConvert {
+
+	private static SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+}

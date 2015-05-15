@@ -1,0 +1,5 @@
+package org.soap.diovani.motta.annotations;
+
+public interface SoapCollection {
+
+}

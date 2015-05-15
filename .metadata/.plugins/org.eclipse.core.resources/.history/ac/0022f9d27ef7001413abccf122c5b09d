@@ -1,0 +1,93 @@
+package org.soap.diovani.motta.conversor;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 09/05/2015
+ * Classe responsável por efetuar a conversão dos valores lidos do web service
+ */
+public class Conversor {
+
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em String
+	 * @param object o objeto a ser convertido
+	 * @return uma String contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static String toString(Object object) throws Exception {
+		return object.toString();
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Integer
+	 * @param object o objeto a ser convertido
+	 * @return um Integer contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Integer toInt(Object object) throws Exception {
+		return Integer.parseInt(object.toString());
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em BigDecimal
+	 * @param object o objeto a ser convertido
+	 * @return um BigDecimal contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static BigDecimal toBigDecimal(Object object) throws Exception {
+		return BigDecimal.valueOf(Double.valueOf(object.toString()));
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Date
+	 * @param object o objeto a ser convertido
+	 * @return um Date contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Date toDate(Object object) throws Exception{
+		return null;
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Boolean
+	 * @param object o objeto a ser convertido
+	 * @return um Boolean contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Boolean toBoolean(Object object) throws Exception{
+		return Boolean.parseBoolean(object.toString());
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Long
+	 * @param object o objeto a ser convertido
+	 * @return um Long contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Long toLong(Object object) throws Exception{
+		return Long.decode(object.toString());
+	}
+
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Float
+	 * @param object o objeto a ser convertido
+	 * @return um Float contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Float toFloat(Object object) throws Exception{
+		return Float.valueOf(object.toString());
+	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto do tipo Object em Float
+	 * @param object o objeto a ser convertido
+	 * @return um Float contendo o parametro convertido
+	 * @throws Exception
+	 */
+	public static Double toDouble(Object object) throws Exception{
+		return Float.valueOf(object.toString());
+	}
+}

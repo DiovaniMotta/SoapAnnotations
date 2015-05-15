@@ -15,6 +15,7 @@ public class FieldAnnotations {
 	private Field field;
 	private String name;
 	private Type type;
+	private Class<?> annotation;
 	
 	public Field getField() {
 		return field;
@@ -34,6 +35,15 @@ public class FieldAnnotations {
 	public void setType(Type type) {
 		this.type = type;
 	}
-	
-	
+	public Class<?> getAnnotation() {
+		return annotation;
+	}
+	public void setAnnotation(Class<?> annotation) {
+		this.annotation = annotation;
+	}
+	@Override
+	public String toString() {
+		return "FieldAnnotations [field=" + field + ", name=" + name
+				+ ", type=" + type + ", annotation=" + annotation + "]";
+	}
 }

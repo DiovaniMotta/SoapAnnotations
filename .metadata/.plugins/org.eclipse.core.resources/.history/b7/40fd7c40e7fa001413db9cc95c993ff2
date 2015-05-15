@@ -1,0 +1,21 @@
+package org.soap.diovani.motta.transactions;
+
+import org.ksoap2.serialization.SoapPrimitive;
+import org.soap.diovani.motta.utils.Klasse;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 15/05/2015
+ * Classe responsavel por efetuar as requisicoes soap com o web service Soap 
+ *
+ */
+public class RequestSoap {
+
+	
+	public <T> T primitiveReques(Class<?> kclasse,SoapPrimitive soapPrimitive){
+		T target == null;
+		target = Klasse.instancialize(kclasse)
+		return target;
+	}
+}

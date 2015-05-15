@@ -64,10 +64,7 @@ public class SoapSerializable implements KvmSerializable{
 		{
 			object = atributos.get(position).getField().get(object);
 		}
-		catch(Exception exception)
-		{
-			
-		}
+		catch(Exception exception){}
 		return object;
 	}
 
