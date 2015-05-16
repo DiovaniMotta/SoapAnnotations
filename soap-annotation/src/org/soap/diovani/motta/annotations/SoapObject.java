@@ -19,5 +19,5 @@ public @interface SoapObject {
 	
 	String namespace();
 	
-	String id() default "";
+	String id();
 }

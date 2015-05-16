@@ -1,0 +1,1 @@
+2015-05-15 21:54:25,135 [main] WARN  o.e.r.c.r.p.ProcessableProposalFactory - Unknown JDT proposal type 'class org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal' ('lista'). Returning original proposal instead.

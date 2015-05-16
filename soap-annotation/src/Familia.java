@@ -4,7 +4,7 @@ import org.soap.diovani.motta.annotations.SoapObject;
 import org.soap.diovani.motta.annotations.SoapProperty;
 import org.soap.diovani.motta.annotations.SoapProperty.Type;
 
-@SoapObject(namespace="http:/www.teste.com.br")
+@SoapObject(namespace="http:/www.teste.com.br",id="familia")
 public class Familia  implements Serializable {
 
 	/**
@@ -18,6 +18,12 @@ public class Familia  implements Serializable {
 	
 	public Familia() {
 		super();
+	}
+
+	public Familia(int chave, String nome) {
+		super();
+		this.chave = chave;
+		this.nome = nome;
 	}
 
 	public int getChave() {

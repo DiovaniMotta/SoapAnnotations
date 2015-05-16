@@ -13,36 +13,43 @@ public class ClassAnnotations {
 
 	private Class<?> kclasse;
 	private String namespace;
-	private String typeId;
+	private String id;
 	private List<FieldAnnotations> fields = new ArrayList<FieldAnnotations>();
 	
 	public Class<?> getKclasse() {
 		return kclasse;
 	}
+	
 	public void setKclasse(Class<?> kclasse) {
 		this.kclasse = kclasse;
 	}
+	
 	public String getNamespace() {
 		return namespace;
 	}
+	
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
 	}
-	public String getTypeId() {
-		return typeId;
+
+	public String getId() {
+		return id;
 	}
-	public void setTypeId(String typeId) {
-		this.typeId = typeId;
+
+	public void setId(String id) {
+		this.id = id;
 	}
+	
 	public List<FieldAnnotations> getFields() {
 		return fields;
 	}
 	public void setFields(List<FieldAnnotations> fields) {
 		this.fields = fields;
 	}
+
 	@Override
 	public String toString() {
 		return "ClassAnnotations [kclasse=" + kclasse + ", namespace="
-				+ namespace + ", typeId=" + typeId + ", fields=" + fields + "]";
+				+ namespace + ", id=" + id + ", fields=" + fields + "]";
 	}
 }

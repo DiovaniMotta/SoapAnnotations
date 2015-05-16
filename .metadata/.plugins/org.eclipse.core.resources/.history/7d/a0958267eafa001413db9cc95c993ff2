@@ -1,0 +1,11 @@
+package org.soap.diovani.motta.annotations.message;
+
+import org.ksoap2.serialization.SoapObject;
+
+public class Message {
+
+	//armazena a url de conexao com servidor
+	public String URL;
+	//armazena o objeto que sera enviado para o servidor
+	public SoapObject object;
+}

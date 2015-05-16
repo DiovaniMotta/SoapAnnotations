@@ -1,0 +1,26 @@
+package org.soap.diovani.motta.transactions;
+
+import org.soap.diovani.motta.annotations.message.MessageSoap;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 15/05/2015
+ * Classe responsável por efetuar as transacoes Soap com o servidor
+ */
+public class Transactions  {
+	
+	
+	public MessageSoap create(String url,String service){
+		if((url == null) || (url.isEmpty())){
+			throw new NullPointerException("Informe a url para conexão com o web service.");
+		}
+		if((service == null) || (service.isEmpty())){
+			throw new NullPointerException("Informe a url para conexão com o web service.");
+		}
+		MessageSoap messageSoap = new MessageSoap();
+		
+		return messageSoap;
+	}
+
+}

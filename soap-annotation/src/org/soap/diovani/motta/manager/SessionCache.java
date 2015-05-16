@@ -3,6 +3,8 @@ package org.soap.diovani.motta.manager;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
+import javax.xml.bind.PropertyException;
+
 import org.soap.diovani.motta.annotations.SoapCollection;
 import org.soap.diovani.motta.annotations.SoapObject;
 import org.soap.diovani.motta.annotations.SoapProperty;
@@ -23,6 +25,7 @@ public class SessionCache {
 	 * Método responsável por retornar um objeto contendo as anotações de classe e de seus atributos
 	 * @param kclasse a classe que será verificada
 	 * @return um objeto do tipo ClassAnnotations, contendo as anotações de classes e objetos
+	 * @throws PropertyException 
 	 */
 	public static ClassAnnotations annotations(Class<?> kclasse){
 		//verifico se o objeto já está contido na lista
@@ -38,7 +41,7 @@ public class SessionCache {
 			classAnnotations = new ClassAnnotations();
 			classAnnotations.setKclasse(kclasse);
 			classAnnotations.setNamespace(soapObject.namespace());
-			classAnnotations.setTypeId(soapObject.id());
+			classAnnotations.setId(soapObject.id());
 			// retorno todos os atributos declarados na classe
 			Field[] fields = kclasse.getDeclaredFields();
 			//itero toda a lista de objetos

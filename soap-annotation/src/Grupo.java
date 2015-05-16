@@ -5,7 +5,7 @@ import org.soap.diovani.motta.annotations.SoapObject;
 import org.soap.diovani.motta.annotations.SoapProperty;
 import org.soap.diovani.motta.annotations.SoapProperty.Type;
 
-@SoapObject(namespace="http:/www.teste.com.br")
+@SoapObject(namespace="http:/www.teste.com.br",id="grupo")
 public class Grupo implements Serializable {
 
 	/**
@@ -17,7 +17,7 @@ public class Grupo implements Serializable {
 	@SoapProperty(property="nome",type=Type.PRIMITIVE)
 	private String nome;
 	@SoapProperty(property="comissao",type=Type.PRIMITIVE)
-	private BigDecimal comissao;
+	private BigDecimal comissao = BigDecimal.ZERO;
 	
 	public Grupo() {
 		super();

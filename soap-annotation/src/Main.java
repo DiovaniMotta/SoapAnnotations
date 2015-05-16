@@ -1,9 +1,6 @@
 import java.math.BigDecimal;
 import java.util.Date;
-
-import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.SoapObject;
-import org.soap.diovani.motta.conversor.DateConvert;
 import org.soap.diovani.motta.manager.Session;
 
 
@@ -24,9 +21,24 @@ public class Main {
 		familia.addProperty("chave", 2);
 		familia.addProperty("nome","Grupo");
 		soapObject.addSoapObject(familia);
-		Produto produto = Session.parse(Produto.class, soapObject);
-		System.out.println(produto.toString());
+		Produto produto2 = new Produto(1,"PAO");
+		produto2.setFamilia(new Familia(2, "Familia"));
+		produto2.setGrupo(new Grupo(3, "Grupo"));
+		produto2.setValidade(new Date());
+		produto2.getLista().add(new Grupo(2, "Grupo"));
+		produto2.getLista().add(new Grupo(4, "Grupo"));
+		produto2.getLista().add(new Grupo(5, "Grupo"));
+		produto2.getLista().add(new Grupo(6, "Grupo"));
+		produto2.getLista().add(new Grupo(7, "Grupo"));
 		
+		System.out.println(produto2);
+		try {
+			SoapObject object = Session.parse(produto2);
+			System.out.println(object.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -21,7 +21,7 @@ public class PrimitiveValue {
 	 * @return o objeto convertido
 	 * @throws Exception 
 	 */
-	public Object value(Class<?> tipoCampo,Object object) throws Exception{
+	public Object valueOf(Class<?> tipoCampo,Object object) throws Exception{
 		Object valor = null;
 		if(tipoCampo == String.class){
 			valor = Conversor.toString(object);

@@ -3,10 +3,13 @@ package org.soap.diovani.motta.manager;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.xml.bind.PropertyException;
+
 import org.ksoap2.serialization.SoapObject;
 import org.soap.diovani.motta.annotations.SoapCollection;
 import org.soap.diovani.motta.annotations.SoapProperty;
 import org.soap.diovani.motta.annotations.SoapProperty.Type;
+import org.soap.diovani.motta.annotations.entidades.ClassAnnotations;
 import org.soap.diovani.motta.annotations.entidades.FieldAnnotations;
 import org.soap.diovani.motta.types.CollectionsValue;
 import org.soap.diovani.motta.types.PrimitiveValue;
@@ -26,8 +29,9 @@ public class Session {
 	 * @param classe a classe a qual se deseja retornar um objeto
 	 * @param object o SoapObject que se deseja desenpacotar
 	 * @return um novo objeto do web service.
+	 * @throws PropertyException 
 	 */
-	public static <T> T parse(Class<T> classe,org.ksoap2.serialization.SoapObject object){
+	public static <T> T valueOf(Class<T> classe,org.ksoap2.serialization.SoapObject object) throws PropertyException {
 		T target = null;
 		try {
 			//crio uma instancia da classe recebida por parametro
@@ -60,11 +64,11 @@ public class Session {
 				if(annotations.getAnnotation().equals(SoapProperty.class)){
 					if(propertyType == Type.PRIMITIVE){
 						PrimitiveValue primitiveValue = new PrimitiveValue();
-						valor = primitiveValue.value(tipoCampo, campo);
+						valor = primitiveValue.valueOf(tipoCampo, campo);
 					}
 					if(propertyType == Type.COMPLEX){
 						SoapObject aux = (SoapObject) campo;
-						valor = parse(tipoCampo,aux);
+						valor = valueOf(tipoCampo,aux);
 					}
 					field.setAccessible(true);	
 					field.set(target,valor);
@@ -88,7 +92,7 @@ public class Session {
 					@SuppressWarnings("unused")
 					T aux = Klasse.instancialize(collection.classe());
 					CollectionsValue<T> collectionsValue = new CollectionsValue<T>();
-					valor = collectionsValue.value(collection.classe(),collections);
+					valor = collectionsValue.valueOf(collection.classe(),collections);
 				}
 			}
 		}
@@ -97,5 +101,71 @@ public class Session {
 			exception.printStackTrace();
 		}
 		return target;
+	}
+	
+	/**
+	 * Método responsável por efetuar o empacotamento de um objeto complexo que será enviado via SOAP para um web service
+	 * @param object o objeto que será enviado
+	 * @param name o nome do objeto enviado
+	 * @return um objeto SoapObject contendo os dados empacotados
+	 * @throws Exception 
+	 */
+	public static SoapObject parse(Object object) throws Exception{
+		Class<?> kclasse = object.getClass();
+		ClassAnnotations classAnnotations = SessionCache.annotations(kclasse);
+		if(classAnnotations == null){
+			throw new  NullPointerException();
+		}
+		String nameSpace = classAnnotations.getNamespace();
+		if((nameSpace == null) || (nameSpace.isEmpty())){
+			throw new NullPointerException("Defina a anotação SoapObject para a classe.");
+		}
+		String id = classAnnotations.getId();
+		if((id == null) || (id.isEmpty())){
+			throw new NullPointerException("Defina a anotação SoapObject para a classe.");
+		}
+		//declaro o objeto que será retornado
+		SoapObject soapObject = new SoapObject(nameSpace,id);
+		// retorno as anotações contidas na classe passada por parametro
+		List<FieldAnnotations> fields = SessionCache.annotations(kclasse).getFields();
+		Field field = null;
+		Type propertyType = null;
+		//itero todas as anotações contidas na classe		
+		for(FieldAnnotations f : fields){
+			field = f.getField();
+			propertyType = f.getType();
+			if(f.getAnnotation().equals(SoapProperty.class)){
+				// se o objeto for do tipo primitivo
+				if(propertyType == Type.PRIMITIVE){
+					Object aux = field.get(object);
+					if(aux != null){
+						Class<?> tipoCampo = aux.getClass();
+						PrimitiveValue primitiveValue = new PrimitiveValue();
+						Object process = primitiveValue.valueOf(tipoCampo,aux);
+						soapObject.addProperty(f.getName(),process);
+					}
+				}
+				// se o objeto for do tipo complexo
+				if(propertyType == Type.COMPLEX){
+					Object complex = field.get(object);
+					SoapObject aux = parse(complex);
+					soapObject.addSoapObject(aux);
+				}
+			}
+			// se a anotação for de lista
+			if(f.getAnnotation().equals(SoapCollection.class)){
+				Object lista = field.get(object);
+				@SuppressWarnings("rawtypes")
+				CollectionsValue collectionsValue = new CollectionsValue();
+				SoapCollection collection = f.getField().getAnnotation(SoapCollection.class);
+				Class<?> classeCollections = collection.classe();
+				ClassAnnotations annotations = SessionCache.annotations(classeCollections);
+				collectionsValue.setName(f.getName());
+				collectionsValue.setNamespace(annotations.getNamespace());
+				SoapObject aux = collectionsValue.parse(lista);
+				soapObject.addSoapObject(aux);
+			}
+		}
+		return soapObject;
 	}
 }

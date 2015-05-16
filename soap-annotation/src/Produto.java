@@ -78,6 +78,14 @@ public class Produto implements Serializable {
 		this.validade = validade;
 	}
 
+	public List<Grupo> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<Grupo> lista) {
+		this.lista = lista;
+	}
+
 	@Override
 	public String toString() {
 		return "Produto [chave=" + chave + ", nome=" + nome + ", validade="
