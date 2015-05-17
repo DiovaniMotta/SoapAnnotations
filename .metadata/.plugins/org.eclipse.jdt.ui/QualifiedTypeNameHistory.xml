@@ -12,7 +12,6 @@
 <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
 <fullyQualifiedTypeName name="javax.jws.Oneway"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.serializable.SoapSerializable"/>
-<fullyQualifiedTypeName name="org.ksoap2.serialization.PropertyInfo"/>
 <fullyQualifiedTypeName name="org.ksoap2.serialization.KvmSerializable"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.annotations.SoapObject"/>
@@ -40,10 +39,7 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.annotations.entidades.FieldAnnotations"/>
-<fullyQualifiedTypeName name="java.lang.Class"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.utils.Klasse"/>
-<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.annotations.entidades.ClassAnnotations"/>
 <fullyQualifiedTypeName name="org.soap.diovani.motta.manager.SessionCache"/>
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
@@ -59,4 +55,8 @@
 <fullyQualifiedTypeName name="org.soap.diovani.motta.transactions.Transactions"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="org.ksoap2.serialization.PropertyInfo"/>
+<fullyQualifiedTypeName name="java.lang.Class"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
 </qualifiedTypeNameHistroy>

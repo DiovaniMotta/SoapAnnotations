@@ -51,13 +51,10 @@ public class MarshelUtil implements Marshal {
 		}
 	}
 	
-	/**
-	 * Método responsável por adicionar e registrar o envelope que será enviado para o servidor
-	 * @param object o objeto que será adicionado
-	 */
 	public void addOject(Object object){
 		this.object = object;
 		inicialize();
+	
 	}
 	
 	@Override

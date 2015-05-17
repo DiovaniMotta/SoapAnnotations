@@ -134,9 +134,6 @@ public class TransactionPrimitive implements Transaction {
 		if((service == null) ||(service.isEmpty())){
 			throw new NullPointerException("Defina o serviço requisitado ao servidor.");
 		}
-		if((NAMESPACE == null) ||(NAMESPACE.isEmpty())){
-			throw new NullPointerException("Defina o NAMESPACE do web service.");
-		}
 		if(params == null){
 			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
 		}
@@ -159,14 +156,11 @@ public class TransactionPrimitive implements Transaction {
 			info.setName(classAnnotations.getId());
 			info.setNamespace(namespace);
 			soapObject.addProperty(info);
-		}
-		MarshelUtil marshelUtil = new MarshelUtil();
-		envelope.implicitTypes= true;
-		envelope.setOutputSoapObject(soapObject);    
-		for(int x=0; x<params.length ;x++){
-			marshelUtil.addOject(params[x]);
+			MarshelUtil marshelUtil = new MarshelUtil(object);
 			marshelUtil.register(envelope);
 		}
+		envelope.implicitTypes= true;
+		envelope.setOutputSoapObject(soapObject);    
 		HttpTransportSE http = new HttpTransportSE(URL);
 		http.call("urn:"+service,envelope);
 		Object retorno = envelope.getResponse();

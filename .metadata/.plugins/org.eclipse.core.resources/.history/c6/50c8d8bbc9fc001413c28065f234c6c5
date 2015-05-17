@@ -96,9 +96,6 @@ public class TransactionPrimitive implements Transaction {
 		if((URL == null) ||(URL.isEmpty())){
 			throw new NullPointerException("Defina a url de conexão com o web service.");
 		}
-		if((NAMESPACE == null) ||(NAMESPACE.isEmpty())){
-			throw new NullPointerException("Defina o NAMESPACE do web service.");
-		}
 		if((service == null) ||(service.isEmpty())){
 			throw new NullPointerException("Defina o serviço requisitado ao servidor.");
 		}
@@ -124,57 +121,6 @@ public class TransactionPrimitive implements Transaction {
 		return target;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T call(Object[] params, Class<?> response, String service) throws Exception {
-		T target = null;
-		if((URL == null) ||(URL.isEmpty())){
-			throw new NullPointerException("Defina a url de conexão com o web service.");
-		}
-		if((service == null) ||(service.isEmpty())){
-			throw new NullPointerException("Defina o serviço requisitado ao servidor.");
-		}
-		if((NAMESPACE == null) ||(NAMESPACE.isEmpty())){
-			throw new NullPointerException("Defina o NAMESPACE do web service.");
-		}
-		if(params == null){
-			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
-		}
-		if(params.length == 0){
-			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
-		}
-		SoapObject soapObject = new SoapObject(NAMESPACE,service);
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-		for(int x=0; x <params.length; x++){
-			Object object = params[x];
-			ClassAnnotations classAnnotations = SessionCache.annotations(object.getClass());
-			if(classAnnotations == null){
-				throw new IllegalArgumentException("A classe do objeto repassado por parâmetro não está mapeada.");
-			}
-			String namespace = classAnnotations.getNamespace();
-			PropertyInfo info = new PropertyInfo();
-			info.setValue(object);
-			Class<?> clazz = object.getClass();
-			info.setType(clazz);
-			info.setName(classAnnotations.getId());
-			info.setNamespace(namespace);
-			soapObject.addProperty(info);
-		}
-		MarshelUtil marshelUtil = new MarshelUtil();
-		envelope.implicitTypes= true;
-		envelope.setOutputSoapObject(soapObject);    
-		for(int x=0; x<params.length ;x++){
-			marshelUtil.addOject(params[x]);
-			marshelUtil.register(envelope);
-		}
-		HttpTransportSE http = new HttpTransportSE(URL);
-		http.call("urn:"+service,envelope);
-		Object retorno = envelope.getResponse();
-		PrimitiveValue primitiveValue = new PrimitiveValue();
-		target = (T) primitiveValue.valueOf(response,retorno);
-		return target;
-	}
-	
 	@Override
 	public void addURL(String URL) {
 		this.URL = URL;
@@ -183,5 +129,50 @@ public class TransactionPrimitive implements Transaction {
 	@Override
 	public void addNamespace(String namespace) {
 		this.NAMESPACE = namespace;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T call(Object[] params, Class<?> response, String service) throws Exception {
+		T target = null;
+		if(params == null){
+			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
+		}
+		if(params.length == 0){
+			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
+		}
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		String namespace = classAnnotations.getNamespace();
+		SoapObject soapObject = new SoapObject(namespace,service);
+		for(int x=0; x <params.length; x++){
+			Object object = params[x];
+			ClassAnnotations classAnnotations = SessionCache.annotations(object.getClass());
+			if(classAnnotations == null){
+				throw new IllegalArgumentException("A classe do objeto repassado por parâmetro não está mapeada.");
+			}
+			if((URL == null) ||(URL.isEmpty())){
+				throw new NullPointerException("Defina a url de conexão com o web service.");
+			}
+			if((service == null) ||(service.isEmpty())){
+				throw new NullPointerException("Defina o serviço requisitado ao servidor.");
+			}
+			envelope.setOutputSoapObject(soapObject);    
+			envelope.implicitTypes= true;
+			PropertyInfo info = new PropertyInfo();
+			info.setValue(object);
+			Class<?> clazz = object.getClass();
+			info.setType(clazz);
+			info.setName(classAnnotations.getId());
+			info.setNamespace(namespace);
+			soapObject.addProperty(info);
+			MarshelUtil marshelUtil = new MarshelUtil(object);
+			marshelUtil.register(envelope);
+		}
+		HttpTransportSE http = new HttpTransportSE(URL);
+		http.call("urn:"+service,envelope);
+		Object retorno = envelope.getResponse();
+		PrimitiveValue primitiveValue = new PrimitiveValue();
+		target = (T) primitiveValue.valueOf(response,retorno);
+		return target;
 	}
 }

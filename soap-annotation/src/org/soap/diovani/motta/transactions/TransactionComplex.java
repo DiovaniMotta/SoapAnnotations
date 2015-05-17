@@ -145,12 +145,22 @@ public class TransactionComplex  implements Transaction {
 	@Override
 	public <T> T call(Object[] params, Class<?> response, String service) throws Exception {
 		T target = null;
+		if((NAMESPACE == null) ||(NAMESPACE.isEmpty())){
+			throw new NullPointerException("Defina o NAMESPACE do web service.");
+		}
+		if((URL == null) ||(URL.isEmpty())){
+			throw new NullPointerException("Defina a url de conexão com o web service.");
+		}
+		if((service == null) ||(service.isEmpty())){
+			throw new NullPointerException("Defina o serviço requisitado ao servidor.");
+		}
 		if(params == null){
 			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
 		}
 		if(params.length == 0){
 			throw new NullPointerException("Uma lista de objetos mapeados deve ser informado.");
 		}
+		SoapObject soapObject = new SoapObject(NAMESPACE,service);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		for(int x=0; x<params.length;x++){
 			Object object = params[x];
@@ -163,26 +173,24 @@ public class TransactionComplex  implements Transaction {
 				throw new IllegalArgumentException("Somente é permitido retornar objeto mapeados");
 			}
 			target = Klasse.instancialize(response);
-			if((URL == null) ||(URL.isEmpty())){
-				throw new NullPointerException("Defina a url de conexão com o web service.");
-			}
-			if((service == null) ||(service.isEmpty())){
-				throw new NullPointerException("Defina o serviço requisitado ao servidor.");
-			}
 			String namespace = classAnnotations.getNamespace();
-			SoapObject soapObject = new SoapObject(namespace,service);
 			PropertyInfo info = new PropertyInfo();
 			info.setValue(object);
 			Class<?> clazz = object.getClass();
 			info.setType(clazz);
-			info.setName(retornoClass.getId());
+			info.setName(classAnnotations.getId());
 			info.setNamespace(namespace);
 			soapObject.addProperty(info);
-			envelope.setOutputSoapObject(soapObject);    
-			envelope.implicitTypes= true;
-			MarshelUtil marshelUtil = new MarshelUtil(object);
+		}
+		MarshelUtil marshelUtil = new MarshelUtil();
+		envelope.implicitTypes= true;
+		envelope.setOutputSoapObject(soapObject);    
+		for(int x=0; x<params.length ;x++){
+			marshelUtil.addOject(params[x]);
 			marshelUtil.register(envelope);
 		}
+		envelope.setOutputSoapObject(soapObject);    
+		envelope.implicitTypes= true;
 		HttpTransportSE http = new HttpTransportSE(URL);
 		http.call("urn:"+service,envelope);
 		SoapObject retorno = (SoapObject) envelope.getResponse();

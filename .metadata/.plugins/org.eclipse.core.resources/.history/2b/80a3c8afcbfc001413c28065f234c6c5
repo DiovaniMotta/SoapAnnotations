@@ -164,8 +164,7 @@ public class TransactionPrimitive implements Transaction {
 		envelope.implicitTypes= true;
 		envelope.setOutputSoapObject(soapObject);    
 		for(int x=0; x<params.length ;x++){
-			marshelUtil.addOject(params[x]);
-			marshelUtil.register(envelope);
+			
 		}
 		HttpTransportSE http = new HttpTransportSE(URL);
 		http.call("urn:"+service,envelope);

@@ -160,13 +160,10 @@ public class TransactionPrimitive implements Transaction {
 			info.setNamespace(namespace);
 			soapObject.addProperty(info);
 		}
-		MarshelUtil marshelUtil = new MarshelUtil();
+		MarshelUtil marshelUtil = new MarshelUtil(object);
+		marshelUtil.register(envelope);
 		envelope.implicitTypes= true;
 		envelope.setOutputSoapObject(soapObject);    
-		for(int x=0; x<params.length ;x++){
-			marshelUtil.addOject(params[x]);
-			marshelUtil.register(envelope);
-		}
 		HttpTransportSE http = new HttpTransportSE(URL);
 		http.call("urn:"+service,envelope);
 		Object retorno = envelope.getResponse();

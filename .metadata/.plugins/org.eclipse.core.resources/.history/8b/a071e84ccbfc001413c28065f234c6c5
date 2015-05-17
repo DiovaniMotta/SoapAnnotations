@@ -37,10 +37,6 @@ public class MarshelUtil implements Marshal {
 		inicialize();
 	}
 
-	public MarshelUtil() {
-		super();
-	}
-
 	/**
 	 * Método responsável por inicializar as anotações contidas na classes entidades
 	 */
@@ -49,15 +45,6 @@ public class MarshelUtil implements Marshal {
 		if(annotations == null){
 			throw new NullPointerException("Erro ao inicializar as anotações do objeto.");
 		}
-	}
-	
-	/**
-	 * Método responsável por adicionar e registrar o envelope que será enviado para o servidor
-	 * @param object o objeto que será adicionado
-	 */
-	public void addOject(Object object){
-		this.object = object;
-		inicialize();
 	}
 	
 	@Override

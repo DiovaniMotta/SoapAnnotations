@@ -10,6 +10,7 @@ import org.soap.diovani.motta.annotations.entidades.ClassAnnotations;
 import org.soap.diovani.motta.annotations.entidades.FieldAnnotations;
 import org.soap.diovani.motta.conversor.Conversor;
 import org.soap.diovani.motta.manager.SessionCache;
+import org.soap.diovani.motta.utils.Klasse;
 
 /**
  * 
