@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface SoapObject {
+public @interface SoapEntity {
 	
 	String namespace();
 	
