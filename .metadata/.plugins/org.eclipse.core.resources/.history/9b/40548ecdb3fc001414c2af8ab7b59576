@@ -1,0 +1,10 @@
+package org.soap.diovani.motta.transactions;
+
+
+public interface Transactions {
+
+	public <T> T call(Object object,Class<?> response,String service);
+
+	//public <T> T call(Object object,Class<?> response,String service);
+
+}

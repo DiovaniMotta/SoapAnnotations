@@ -46,14 +46,11 @@ public class Session {
 		Type propertyType = null;
 		try
 		{
-			System.out.println("size:"+fields.size());;
 			//itero todas as anotações feitas contidas na classe
 			for(int i=0; i<fields.size(); i++){
 				FieldAnnotations annotations = fields.get(i);
 				field = annotations.getField();
 				propertyType = annotations.getType();
-				System.out.println("i: "+i);
-				System.out.println("object: "+object.getProperty(i));
 				// retorno o atributo contido dentro do objeto
 				Object campo = object.getProperty(i); 
 				//verifico se o atributo iterado está contido na mensagem recebida pelo web service
@@ -78,7 +75,6 @@ public class Session {
 				}
 				//se a anotação for a anotação SoapCollection
 				if(annotations.getAnnotation().equals(SoapCollection.class)){
-					System.out.println(campo);
 					/*Object instance = annotations.getField().get(object);
 					// se o objeto nao for uma instancia da interface List
 					if(!(instance instanceof List)){

@@ -115,4 +115,14 @@ public class Conversor {
 	public static Timer toTimer(Object object) throws Exception{
 		return null;
 	}
+	
+	/**
+	 * Método responsável por efetuar a conversao de um objeto em uma String
+	 * @param object o objeto que será convertido
+	 * @return uma string contedo o parametro formatado
+	 * @throws Exception
+	 */
+	public static String parse(Object object) throws Exception{
+		return DateConvert.parse(object);
+	}
 }

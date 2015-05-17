@@ -13,7 +13,9 @@ public class DateConvert {
 
 	//Objeto responsável por efetuar  a formatação de string em datas
 	private static SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-	
+	//Objeto responsável por efetuar  a formatação de string em datas
+	private static SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+		
 	/**
 	 * Método responsável por converter um objeto em um tipo de dado Date
 	 * @param date o objeto java.util.Date a ser convertido
@@ -37,5 +39,19 @@ public class DateConvert {
 			throw new NullPointerException("Não foi possível converter o parâmetro em um objeto java.util.Date");
 		}
 		return formater.format(date);
+	}
+	
+	/**
+	 * Método responsável por converter um objeto  em uma String com formato de data yyyy-MM-dd
+	 * @param object o objeto que será convertido
+	 * @return o parametro recebebido em formato string
+	 * @throws Exception
+	 */
+	public static String parse(Object object) throws Exception{
+		Date date = (Date) object;
+		if(date == null){
+			throw new NullPointerException("Não foi possível converter o parâmetro em um objeto java.lang.String");
+		}
+		return parser.format(date);
 	}
 }

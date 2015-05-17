@@ -6,7 +6,7 @@ import java.util.HashMap;
 import javax.xml.bind.PropertyException;
 
 import org.soap.diovani.motta.annotations.SoapCollection;
-import org.soap.diovani.motta.annotations.SoapObject;
+import org.soap.diovani.motta.annotations.SoapEntity;
 import org.soap.diovani.motta.annotations.SoapProperty;
 import org.soap.diovani.motta.annotations.entidades.*;
 
@@ -33,7 +33,7 @@ public class SessionCache {
 		// se nao estiver contido
 		if(classAnnotations == null){
 			// verifico se existe a anotação SoapObject
-			SoapObject soapObject = kclasse.getAnnotation(SoapObject.class);
+			SoapEntity soapObject = kclasse.getAnnotation(SoapEntity.class);
 			if(soapObject == null){
 				throw new NullPointerException("A classe não possui as anotações necessárias.");
 			}

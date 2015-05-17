@@ -1,5 +1,6 @@
 package org.soap.diovani.motta.serializable;
 
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -7,7 +8,9 @@ import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 import org.soap.diovani.motta.annotations.entidades.ClassAnnotations;
 import org.soap.diovani.motta.annotations.entidades.FieldAnnotations;
+import org.soap.diovani.motta.conversor.Conversor;
 import org.soap.diovani.motta.manager.SessionCache;
+import org.soap.diovani.motta.utils.Klasse;
 
 /**
  * 
@@ -63,6 +66,10 @@ public class SoapSerializable implements KvmSerializable{
 		try
 		{
 			object = atributos.get(position).getField().get(object);
+			if(object instanceof Date){
+				Object aux = Conversor.parse(object);
+				object = aux;
+			}
 		}
 		catch(Exception exception){}
 		return object;
@@ -78,7 +85,11 @@ public class SoapSerializable implements KvmSerializable{
 	public void getPropertyInfo(int position, Hashtable hashtable, PropertyInfo info) {
 		FieldAnnotations annotations = atributos.get(position);
 		info.name = annotations.getName();
-		info.type = annotations.getType();		
+		Class<?> kclasse = annotations.getField().getType();
+		if(kclasse.equals(Date.class)){
+			info.type =  String.class;
+		}
+		info.type = kclasse;		
 	}
 
 	@Override

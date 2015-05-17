@@ -1,0 +1,12 @@
+import org.soap.diovani.motta.transactions.Transactions;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Transactions transactions = new Transactions();
+		boolean retorno = transactions.call(Boolean.class, "teste");
+	}
+
+}

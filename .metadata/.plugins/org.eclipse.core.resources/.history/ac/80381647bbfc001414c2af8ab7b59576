@@ -1,0 +1,26 @@
+import java.io.IOException;
+
+import javax.xml.bind.PropertyException;
+
+import org.soap.diovani.motta.transactions.Transactions;
+import org.soap.diovani.motta.transactions.TransactionsComplex;
+import org.soap.diovani.motta.transactions.TransactionsPrimitive;
+import org.xmlpull.v1.XmlPullParserException;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		//Boolean boolean1 = new Boolean(s);
+		Transactions transactions = new TransactionsPrimitive();
+		transactions.addURL("http://10.0.0.103:8080/Teste/services/Serial?wsdl");
+		transactions.addNameSpace("http://teste");
+		try {
+			boolean retorno = transactions.call(Boolean.class, "salvar2");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

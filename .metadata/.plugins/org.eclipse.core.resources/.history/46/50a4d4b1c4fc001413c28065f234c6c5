@@ -1,0 +1,22 @@
+
+import org.soap.diovani.motta.transactions.Transaction;
+import org.soap.diovani.motta.transactions.TransactionPrimitive;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		//Boolean boolean1 = new Boolean(s);
+		Transaction transactions = new TransactionPrimitive();
+		transactions.addURL("http://10.0.0.103:8080/Teste/services/Serial?wsdl");
+		transactions.addNamespace("http://teste");
+		try {
+			boolean retorno = transactions.call(Boolean.class, "salvar2");
+			System.out.println(retorno);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

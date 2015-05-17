@@ -1,0 +1,67 @@
+package org.soap.diovani.motta.marshel;
+
+import java.io.IOException;
+import java.io.NotActiveException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.ksoap2.serialization.Marshal;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.soap.diovani.motta.annotations.entidades.ClassAnnotations;
+import org.soap.diovani.motta.annotations.entidades.FieldAnnotations;
+import org.soap.diovani.motta.manager.SessionCache;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 10/05/2015
+ * Classe responsável por registrar os atributos nao registrados por padrão em um envelope
+ */
+public class MarshelUtil implements Marshal {
+
+	//Objeto mapeado que será registrado
+	private Object object;
+	//Objeto que contém as anotações da classe
+	private ClassAnnotations annotations;
+	//Armazena a lista de anotações contidas nos atributos da classe
+	private List<FieldAnnotations> atributos = new ArrayList<FieldAnnotations>();
+	public MarshelUtil(Object object) {
+		super();
+		this.object = object;
+		inicialize();
+	}
+
+	/**
+	 * Método responsável por inicializar as anotações contidas na classes entidades
+	 */
+	private void inicialize(){
+		annotations = SessionCache.annotations(object.getClass());
+		if(annotations == null){
+			throw new NullPointerException("Erro ao inicializar as anotações do objeto.");
+		}
+		atributos = annotations.getFields();
+	}
+	
+	@Override
+	public Object readInstance(XmlPullParser parser, String arg1, String arg2,PropertyInfo info) 
+			throws IOException, XmlPullParserException {
+		return null;
+	}
+
+	@Override
+	public void register(SoapSerializationEnvelope envelope) {
+		for(FieldAnnotations f : atributos){
+			
+		}
+	}
+
+	@Override
+	public void writeInstance(XmlSerializer xml, Object object) throws IOException {
+		throw new NotActiveException("Método não implementado.");
+	}
+
+}

@@ -1,0 +1,21 @@
+package org.soap.diovani.motta.transactions;
+
+import java.io.IOException;
+import javax.xml.bind.PropertyException;
+import org.ksoap2.transport.HttpResponseException;
+import org.xmlpull.v1.XmlPullParserException;
+
+/**
+ * 
+ * @author Diovani Bernardi da Motta
+ * Data: 17/05/2015.
+ * Interface que deve ser implementada para tratar de transacoes que contenham objetos complexos ou primitivos
+ * 
+ */
+public interface Transactions {
+
+	public <T> T call(Class<?> response,String service) throws Exception;
+	
+	public <T> T call(Object object,Class<?> response,String service) throws Exception; 
+
+}
