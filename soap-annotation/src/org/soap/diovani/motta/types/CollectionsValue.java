@@ -33,6 +33,9 @@ public class CollectionsValue <E> {
 		for(int x=0; x<soapObject.getPropertyCount(); x++){
 			try
 			{
+				System.out.println("propertyCount: "+soapObject.getPropertyCount());
+				System.out.println("x: "+x);
+				System.out.println(soapObject.getProperty(x));
 				SoapObject property = (SoapObject) soapObject.getProperty(x);
 				Object object = Session.valueOf(classe,property);
 				lista.add((E) object);

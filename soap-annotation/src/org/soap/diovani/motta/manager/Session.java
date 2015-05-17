@@ -46,11 +46,14 @@ public class Session {
 		Type propertyType = null;
 		try
 		{
+			System.out.println("size:"+fields.size());;
 			//itero todas as anotações feitas contidas na classe
 			for(int i=0; i<fields.size(); i++){
 				FieldAnnotations annotations = fields.get(i);
 				field = annotations.getField();
 				propertyType = annotations.getType();
+				System.out.println("i: "+i);
+				System.out.println("object: "+object.getProperty(i));
 				// retorno o atributo contido dentro do objeto
 				Object campo = object.getProperty(i); 
 				//verifico se o atributo iterado está contido na mensagem recebida pelo web service
@@ -75,17 +78,17 @@ public class Session {
 				}
 				//se a anotação for a anotação SoapCollection
 				if(annotations.getAnnotation().equals(SoapCollection.class)){
-					Object instance = Klasse.instancialize(annotations.getField().getClass());
+					System.out.println(campo);
+					/*Object instance = annotations.getField().get(object);
 					// se o objeto nao for uma instancia da interface List
 					if(!(instance instanceof List)){
 						throw new ClassCastException("Somente é permitido usar a annotação SoapCollections para implementações da interface java.util.List");
-					}
+					}*/
 				}
 				//se a anotação for a anotação SoapCollection
 				if(annotations.getAnnotation().equals(SoapCollection.class)){
 					SoapObject collections = (SoapObject) campo;
-					Class<?> klass = annotations.getAnnotation();
-					SoapCollection collection  = Klasse.instancialize(klass);
+					SoapCollection collection  = annotations.getField().getAnnotation(SoapCollection.class);
 					if(collection == null){
 						throw new ClassCastException("Não foi possível realizar a conversão.");
 					}
@@ -93,6 +96,8 @@ public class Session {
 					T aux = Klasse.instancialize(collection.classe());
 					CollectionsValue<T> collectionsValue = new CollectionsValue<T>();
 					valor = collectionsValue.valueOf(collection.classe(),collections);
+					field.setAccessible(true);	
+					field.set(target,valor);
 				}
 			}
 		}
