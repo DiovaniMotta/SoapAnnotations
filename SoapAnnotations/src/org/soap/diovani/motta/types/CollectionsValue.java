@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 import org.soap.diovani.motta.manager.Session;
+import org.soap.diovani.motta.utils.CollectionsSOAP;
 import org.soap.diovani.motta.utils.Klasse;
 
 /**
@@ -60,18 +61,27 @@ public class CollectionsValue <E> {
 	 * @throws InstantiationException 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<E> valueOf(Class<?> classe,String name,SoapObject soapObject) throws InstantiationException, IllegalAccessException{
+	public List<E> valueOf(Class<?> classe,String property,SoapObject soapObject) throws InstantiationException, IllegalAccessException{
 		lista.clear();
+		//retorno a posicao de inicio e fim da coleção dentro da mensagem SOAP
+		int begin = CollectionsSOAP.indexOf(soapObject, property);
+		int end = CollectionsSOAP.lastIndexOf(soapObject, property);
+		if(begin == -1)
+		  return lista;
+		if(end == -1)
+		  return lista;
+		begin++;
+		end++;
 		//itero sobre toda a lista de propriedades
-		E target = Klasse.instancialize(classe);
-		for(int x=0; x<soapObject.getPropertyCount(); x++){
+		for(int x=begin; x<end; x++){
 			try
 			{	
 			    if(soapObject.getProperty(x) instanceof SoapObject){
 			    	SoapObject aux = (SoapObject) soapObject.getProperty(x);
 			    	if(aux != null){
+			    		E target = Klasse.instancialize(classe);
 			    		target = (E) Session.valueOf(classe,aux);
-						lista.add(target);
+			    		lista.add(target);
 			    	}
 			    }
 			}

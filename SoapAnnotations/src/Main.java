@@ -12,9 +12,6 @@ public class Main {
 			transaction.url("http://localhost:8080/WebService/services/Consulta?wsdl");
 			transaction.namespace("http://servico.com");
 			Produto produto = transaction.call(Produto.class,"consulta");
-			for(Fornecedor fornecedor : produto.getLista()){
-				System.out.println(fornecedor.toString());
-			}
 			System.out.println(produto.toString());
 			Transaction transaction2 = new TransactionPrimitive();
 			transaction2.url("http://localhost:8080/WebService/services/Consulta?wsdl");
