@@ -1,6 +1,0 @@
-import java.io.Serializable;
-
-
-public class Familia  implements Serializable{
-
-}
